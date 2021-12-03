@@ -52,6 +52,7 @@ builder.Services.Configure<IpRateLimitOptions>(options => {
         }
     };
     options.IpWhitelist = new List<String>();
+    options.IpWhitelist.Add("10.0.0.0/16"); // Ignore internal subnets
 });
 builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
 builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
