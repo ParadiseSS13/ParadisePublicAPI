@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ParadisePublicAPI.Database;
+using ParadisePublicAPI.ProfilerDatabase;
 using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -22,9 +23,14 @@ builder.Services.AddSwaggerGen(options => {
     });
 });
 
-// Setup DB
+// Setup Game DB
 builder.Services.AddDbContext<paradise_gamedbContext>(options => {
     options.UseMySql(builder.Configuration.GetConnectionString("GameDB"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("GameDB")));
+});
+
+// Setup profiler DB
+builder.Services.AddDbContext<paradise_profilerdaemonContext>(options => {
+    options.UseMySql(builder.Configuration.GetConnectionString("ProfilerDB"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("ProfilerDB")));
 });
 
 // Setup IP preservation for...
