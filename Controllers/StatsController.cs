@@ -120,7 +120,33 @@ namespace ParadisePublicAPI.Controllers {
             return Ok(population_time_dict);
         }
 
+        /// <summary>
+        /// Gets the metadata for a round
+        /// </summary>
+        /// <param name="round_id">Round ID to pull data from.</param>
+        /// <returns>The metadata for a round.</returns>
+        /// <response code="200">Round metadata successfully retrieved</response>
+        /// <response code="404">Round was not found, or is still ongoing</response>
+        /// <response code="429">Rate limited by server</response>
+        [HttpGet("metadata/{round_id}")]
+        public IActionResult GetMetadata([Required] int round_id) {
+            // This is required
+            if (round_id <= 0) {
+                // We somehow got here. This should never happen.
+                return BadRequest("A round ID wasnt supplied!");
+            }
 
+            if (!RoundExists(round_id)) {
+                return NotFound("Round not found, or is still ongoing.");
+            }
+
+            // Now we get the metadata
+            // First we need start and end of the round stuff
+            Round R = _context.Rounds.Where(R => R.Id == round_id).First();
+            Stats_RoundModel SRM = new Stats_RoundModel();
+            SRM.FromDBRound(R);
+            return Ok(SRM);
+        }
 
         // This exists for anti-metagaming. A row for the round may exist, but its not over till it has a shutdown datetime.
         // This is an easy check to make sure that the round has ended, to avoid pulling gamemode mid round
