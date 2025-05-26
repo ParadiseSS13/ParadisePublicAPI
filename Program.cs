@@ -21,6 +21,12 @@ builder.Services.AddSwaggerGen(options => {
         Title = "Paradise Public API",
         Description = "Paradise Station public API for data querying. This API may change with no notice.<br>Source: <a href=\"https://github.com/ParadiseSS13/ParadisePublicAPI\">https://github.com/ParadiseSS13/ParadisePublicAPI</a><br>Requests are limited to 500 every minute, and 3600 every hour."
     });
+    options.SwaggerDoc("v2", new OpenApiInfo
+    {
+        Version = "v2",
+        Title = "Paradise Public API",
+        Description = "Paradise Station public API for data querying. This API may change with no notice.<br>Source: <a href=\"https://github.com/ParadiseSS13/ParadisePublicAPI\">https://github.com/ParadiseSS13/ParadisePublicAPI</a><br>Requests are limited to 500 every minute, and 3600 every hour."
+    });
 });
 
 // Setup Game DB
@@ -71,6 +77,7 @@ WebApplication app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(options => {
     options.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
+    options.SwaggerEndpoint("swagger/v2/swagger.json", "v2");
     options.RoutePrefix = String.Empty;
     
 });

@@ -4,10 +4,11 @@ using ParadisePublicAPI.Models;
 using ParadisePublicAPI.ProfilerDatabase;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ParadisePublicAPI.Controllers {
+namespace ParadisePublicAPI.Controllers.V1 {
     /// <summary>
     /// Profiler
     /// </summary>
+    [ApiExplorerSettings(GroupName = "v1")]
     [SwaggerTag("Query proc times from the profiler. Old data may be cleared with no notice")]
     [Route("profiler")]
     public class ProfilerController : Controller {
