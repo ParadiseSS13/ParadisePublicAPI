@@ -11,12 +11,8 @@ namespace ParadisePublicAPI.Controllers.V2
     [ApiExplorerSettings(GroupName = "v2")]
     [SwaggerTag("Query statistics from game rounds")]
     [Route("v2/stats")]
-    public class StatsController : Controller {
-        private readonly paradise_gamedbContext _context;
-
-        public StatsController(paradise_gamedbContext context) {
-            _context = context;
-        }
+    public class StatsController(ParadiseGamedbContext context) : Controller {
+        private readonly ParadiseGamedbContext _context = context;
 
         /// <summary>
         /// Gets the data of a specific feedback key for the specified rounds.

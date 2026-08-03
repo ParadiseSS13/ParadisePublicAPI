@@ -28,7 +28,7 @@ namespace ParadisePublicAPI.Models {
         [JsonPropertyName("calls")]
         public int Calls { get; set; }
 
-        public void fromModels(Proc proc, Sample sample) {
+        public void FromModels(Proc proc, Sample sample) {
             RoundId = sample.RoundId;
             SampleTime = sample.SampleTime;
             Procpath = proc.Procpath;

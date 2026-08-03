@@ -76,7 +76,7 @@ namespace ParadisePublicAPI.Controllers.V1 {
                 // Convert them
                 foreach(Sample sample in db_samples) {
                     Profiler_Sample ps = new();
-                    ps.fromModels(proc, sample);
+                    ps.FromModels(proc, sample);
                     output_samples.Add(ps);
                 }
 
