@@ -2,6 +2,10 @@
 
 This the API for ParadiseSS13 that is publicly accessible and queryable by anyone.
 
+## Updating EF Schemas
+
+Run `dotnet ef dbcontext scaffold "connstring" Pomelo.EntityFrameworkCore.MySql --output-dir Database -f` with the relevant connection string. Change `Database` to `ProfilerDatabase` for the profiler DB.
+
 ## License
 
 Paradise Public API

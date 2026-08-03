@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ParadisePublicAPI.ProfilerDatabase;
 
-public partial class Sample
+public partial class SendmapsSample
 {
     public long Id { get; set; }
 
@@ -13,15 +13,9 @@ public partial class Sample
 
     public long ProcId { get; set; }
 
-    public double Self { get; set; }
-
-    public double Total { get; set; }
-
-    public double Real { get; set; }
-
-    public double Over { get; set; }
+    public double? Value { get; set; }
 
     public int Calls { get; set; }
 
-    public virtual Proc Proc { get; set; } = null!;
+    public virtual SendmapsProc Proc { get; set; } = null!;
 }

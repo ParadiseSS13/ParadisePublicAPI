@@ -10,14 +10,9 @@ namespace ParadisePublicAPI.Controllers {
     /// </summary>
     [SwaggerTag("Query proc times from the profiler. Old data may be cleared with no notice")]
     [Route("profiler")]
-    public class ProfilerController : Controller {
-        private readonly paradise_gamedbContext _gameContext;
-        private readonly paradise_profilerdaemonContext _profilerContext;
-
-        public ProfilerController(paradise_gamedbContext gameContext, paradise_profilerdaemonContext profilerContext) {
-            _gameContext = gameContext;
-            _profilerContext = profilerContext;
-        }
+    public class ProfilerController(ParadiseGamedbContext gameContext, ParadiseProfilerdaemonContext profilerContext) : Controller {
+        private readonly ParadiseGamedbContext _gameContext = gameContext;
+        private readonly ParadiseProfilerdaemonContext _profilerContext = profilerContext;
 
         /// <summary>
         /// Gets a list of procs as a search suggestion
@@ -33,9 +28,9 @@ namespace ParadisePublicAPI.Controllers {
             }
 
             // Init up here so lines down dont whine
-            List<string> db_procs = new List<string>();
+            List<string> db_procs = [];
 
-            db_procs = _profilerContext.Procs.Where(P => P.Procpath.Contains(searchterm)).Select(P => P.Procpath).Take(10).ToList();
+            db_procs = [.. _profilerContext.Procs.Where(P => P.Procpath.Contains(searchterm)).Select(P => P.Procpath).Take(10)];
 
             // And send it
             return Ok(db_procs);
@@ -71,15 +66,15 @@ namespace ParadisePublicAPI.Controllers {
                 return NotFound("Proc not found");
             }
 
-            List<Sample> db_samples = new List<Sample>();
-            List<Profiler_Sample> output_samples = new List<Profiler_Sample>();
+            List<Sample> db_samples = [];
+            List<Profiler_Sample> output_samples = [];
 
-            db_samples = _profilerContext.Samples.Where(S => S.Proc.Procpath == proc.Procpath).Where(S => S.RoundId == roundid).ToList();
+            db_samples = [.. _profilerContext.Samples.Where(S => S.Proc.Procpath == proc.Procpath).Where(S => S.RoundId == roundid)];
 
             if (db_samples.Count > 0) {
                 // Convert them
                 foreach(Sample sample in db_samples) {
-                    Profiler_Sample ps = new Profiler_Sample();
+                    Profiler_Sample ps = new();
                     ps.fromModels(proc, sample);
                     output_samples.Add(ps);
                 }

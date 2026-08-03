@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParadisePublicAPI.Database
+namespace ParadisePublicAPI.Database;
+
+public partial class Privacy
 {
-    public partial class Privacy
-    {
-        public string Ckey { get; set; } = null!;
-        public DateTime Datetime { get; set; }
-        public ulong Consent { get; set; }
-    }
+    public string Ckey { get; set; } = null!;
+
+    public DateTime Datetime { get; set; }
+
+    public ulong Consent { get; set; }
 }

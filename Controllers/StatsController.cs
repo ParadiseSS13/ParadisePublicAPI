@@ -16,13 +16,8 @@ namespace ParadisePublicAPI.Controllers {
     /// </summary>
     [SwaggerTag("Query statistics from game rounds")]
     [Route("stats")]
-    public class StatsController : Controller {
-        private readonly paradise_gamedbContext _context;
-
-        public StatsController(paradise_gamedbContext context) {
-            _context = context;
-        }
-
+    public class StatsController(ParadiseGamedbContext context) : Controller {
+        private readonly ParadiseGamedbContext _context = context;
 
         /// <summary>
         /// Gets a list of valid rounds that can be queried.
@@ -34,21 +29,21 @@ namespace ParadisePublicAPI.Controllers {
         [HttpGet("roundlist")]
         public IActionResult GetRounds(int offset) {
             // Init up here so lines down dont whine
-            List<Round> db_rounds = new List<Round>();
+            List<Round> db_rounds = [];
 
             // Account for optional offset
-            if(offset > 0) {
+            if (offset > 0) {
                 // We got an offset, account for it
-                db_rounds = _context.Rounds.Where(R => R.ShutdownDatetime != null).Where(R => R.Id < offset).OrderByDescending(R => R.Id).Take(50).ToList();
+                db_rounds = [.. _context.Rounds.Where(R => R.ShutdownDatetime != null).Where(R => R.Id < offset).OrderByDescending(R => R.Id).Take(50)];
             } else {
                 // We dont. Just go as normal.
-                db_rounds = _context.Rounds.Where(R => R.ShutdownDatetime != null).OrderByDescending(R => R.Id).Take(50).ToList();
+                db_rounds = [.. _context.Rounds.Where(R => R.ShutdownDatetime != null).OrderByDescending(R => R.Id).Take(50)];
             }
 
             // Turn them to the models we want
-            List<Stats_RoundModel> returned_rounds = new List<Stats_RoundModel>();
+            List<Stats_RoundModel> returned_rounds = [];
             foreach (Round R in db_rounds) {
-                Stats_RoundModel SRM = new Stats_RoundModel();
+                Stats_RoundModel SRM = new();
                 SRM.FromDBRound(R);
                 returned_rounds.Add(SRM);
             }
@@ -73,17 +68,17 @@ namespace ParadisePublicAPI.Controllers {
                 return BadRequest("A round ID wasnt supplied!");
             }
 
-            if(!RoundExists(round_id)) {
+            if (!RoundExists(round_id)) {
                 return NotFound("Round not found, or is still ongoing.");
             }
 
             // Now we get all the stuff
-            List<Feedback> db_feedback_entries = _context.Feedbacks.Where(F => F.RoundId == round_id).OrderBy(F => F.KeyName).ToList();
-            List<Stats_FeedbackModel> returned_feedback = new List<Stats_FeedbackModel>();
-            foreach(Feedback F in db_feedback_entries) {
-                Stats_FeedbackModel SFM = new Stats_FeedbackModel();
+            List<Feedback> db_feedback_entries = [.. _context.Feedbacks.Where(F => F.RoundId == round_id).OrderBy(F => F.KeyName)];
+            List<Stats_FeedbackModel> returned_feedback = [];
+            foreach (Feedback F in db_feedback_entries) {
+                Stats_FeedbackModel SFM = new();
                 SFM.FromDBFeedback(F);
-                returned_feedback.Add(SFM); 
+                returned_feedback.Add(SFM);
             }
 
             return Ok(returned_feedback);
@@ -112,9 +107,9 @@ namespace ParadisePublicAPI.Controllers {
             // Now we get all the stuff
             // First we need start and end of the round stuff
             Round R = _context.Rounds.Where(R => R.Id == round_id).First();
-            List<LegacyPopulation> population_entries = _context.LegacyPopulations.Where(P => P.Time > R.InitializeDatetime).Where(P => P.Time < R.ShutdownDatetime).Where(P => P.ServerId == R.ServerId).ToList();
-            Dictionary<DateTime, int?> population_time_dict = new Dictionary<DateTime, int?>();
-            foreach(LegacyPopulation LP in population_entries) {
+            List<LegacyPopulation> population_entries = [.. _context.LegacyPopulations.Where(P => P.Time > R.InitializeDatetime).Where(P => P.Time < R.ShutdownDatetime).Where(P => P.ServerId == R.ServerId)];
+            Dictionary<DateTime, int?> population_time_dict = [];
+            foreach (LegacyPopulation LP in population_entries) {
                 population_time_dict.Add(LP.Time, LP.Playercount);
             }
             return Ok(population_time_dict);
@@ -143,7 +138,7 @@ namespace ParadisePublicAPI.Controllers {
             // Now we get the metadata
             // First we need start and end of the round stuff
             Round R = _context.Rounds.Where(R => R.Id == round_id).First();
-            Stats_RoundModel SRM = new Stats_RoundModel();
+            Stats_RoundModel SRM = new();
             SRM.FromDBRound(R);
             return Ok(SRM);
         }

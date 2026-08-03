@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParadisePublicAPI.Database
+namespace ParadisePublicAPI.Database;
+
+public partial class VpnWhitelist
 {
-    public partial class VpnWhitelist
-    {
-        public string Ckey { get; set; } = null!;
-        public string? Reason { get; set; }
-    }
+    public string Ckey { get; set; } = null!;
+
+    public string? Reason { get; set; }
 }

@@ -1,20 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParadisePublicAPI.Database
+namespace ParadisePublicAPI.Database;
+
+public partial class Note
 {
-    public partial class Note
-    {
-        public int Id { get; set; }
-        public string Ckey { get; set; } = null!;
-        public string Notetext { get; set; } = null!;
-        public DateTime Timestamp { get; set; }
-        public int? RoundId { get; set; }
-        public string Adminckey { get; set; } = null!;
-        public string? LastEditor { get; set; }
-        public string? Edits { get; set; }
-        public string Server { get; set; } = null!;
-        public uint? CrewPlaytime { get; set; }
-        public byte? Automated { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Ckey { get; set; } = null!;
+
+    public string Notetext { get; set; } = null!;
+
+    public DateTime Timestamp { get; set; }
+
+    public int? RoundId { get; set; }
+
+    public string Adminckey { get; set; } = null!;
+
+    public string? LastEditor { get; set; }
+
+    public string? Edits { get; set; }
+
+    public string Server { get; set; } = null!;
+
+    public uint? CrewPlaytime { get; set; }
+
+    public byte? Automated { get; set; }
+
+    public sbyte Deleted { get; set; }
+
+    public string? Deletedby { get; set; }
+
+    public sbyte Public { get; set; }
 }

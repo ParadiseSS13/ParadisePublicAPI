@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParadisePublicAPI.Database
+namespace ParadisePublicAPI.Database;
+
+public partial class Ipintel
 {
-    public partial class Ipintel
-    {
-        public uint Ip { get; set; }
-        public DateTime Date { get; set; }
-        public double Intel { get; set; }
-    }
+    public uint Ip { get; set; }
+
+    public DateTime Date { get; set; }
+
+    public double Intel { get; set; }
 }

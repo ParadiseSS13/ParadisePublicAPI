@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParadisePublicAPI.Database
+namespace ParadisePublicAPI.Database;
+
+public partial class Ip2group
 {
-    public partial class Ip2group
-    {
-        public string Ip { get; set; } = null!;
-        public DateTime Date { get; set; }
-        public string Groupstr { get; set; } = null!;
-    }
+    public uint Ip { get; set; }
+
+    public DateTime Date { get; set; }
+
+    public uint Groupstr { get; set; }
 }

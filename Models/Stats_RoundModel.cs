@@ -1,34 +1,56 @@
 ﻿using ParadisePublicAPI.Database;
+using System.Text.Json.Serialization;
 
 namespace ParadisePublicAPI.Models {
     /// <summary>
     /// Model class for a round (With some data stripped out)
     /// </summary>
     public class Stats_RoundModel {
-        public int round_id { get; set; }
-        public DateTime init_datetime { get; set; }
-        public DateTime? start_datetime { get; set; }
-        public DateTime? shutdown_datetime { get; set; }
-        public DateTime? end_datetime { get; set; }
-        public string? commit_hash { get; set; }
-        public string? game_mode { get; set; }
-        public string? game_mode_result { get; set; }
-        public string? end_state { get; set; }
-        public string? map_name { get; set; }
-        public string? server_id { get; set; }
+        [JsonPropertyName("round_id")]
+        public int RoundId { get; set; }
+
+        [JsonPropertyName("init_datetime")]
+        public DateTime Initdatetime { get; set; }
+
+        [JsonPropertyName("start_datetime")]
+        public DateTime? StartDatetime { get; set; }
+
+        [JsonPropertyName("shutdown_datetime")]
+        public DateTime? ShutdownDatetime { get; set; }
+
+        [JsonPropertyName("end_datetime")]
+        public DateTime? EndDatetime { get; set; }
+
+        [JsonPropertyName("commit_hash")]
+        public string? CommitHash { get; set; }
+
+        [JsonPropertyName("game_mode")]
+        public string? Gamemode { get; set; }
+
+        [JsonPropertyName("game_mode_result")]
+        public string? GamemodeResult { get; set; }
+
+        [JsonPropertyName("end_state")]
+        public string? EndState { get; set; }
+
+        [JsonPropertyName("map_name")]
+        public string? MapName { get; set; }
+
+        [JsonPropertyName("server_id")]
+        public string? ServerId { get; set; }
 
         public void FromDBRound(Round round) {
-            round_id = round.Id;
-            init_datetime = round.InitializeDatetime;
-            start_datetime = round.StartDatetime;
-            shutdown_datetime = round.ShutdownDatetime;
-            end_datetime = round.EndDatetime;
-            commit_hash = round.CommitHash;
-            game_mode = round.GameMode;
-            game_mode_result = round.GameModeResult;
-            end_state = round.EndState;
-            map_name = round.MapName;
-            server_id = round.ServerId;
+            RoundId = round.Id;
+            Initdatetime = round.InitializeDatetime;
+            StartDatetime = round.StartDatetime;
+            ShutdownDatetime = round.ShutdownDatetime;
+            EndDatetime = round.EndDatetime;
+            CommitHash = round.CommitHash;
+            Gamemode = round.GameMode;
+            GamemodeResult = round.GameModeResult;
+            EndState = round.EndState;
+            MapName = round.MapName;
+            ServerId = round.ServerId;
         }
     }
 }

@@ -1,25 +1,42 @@
 ﻿using ParadisePublicAPI.ProfilerDatabase;
+using System.Text.Json.Serialization;
 
 namespace ParadisePublicAPI.Models {
     public class Profiler_Sample {
-        public int roundId { get; set; }
-        public DateTime sampleTime { get; set; }
-        public string procpath { get; set; } = "";
-        public double self { get; set; }
-        public double total { get; set; }
-        public double real { get; set; }
-        public double over { get; set; }
-        public int calls { get; set; }
+
+        [JsonPropertyName("roundId")]
+        public int RoundId { get; set; }
+
+        [JsonPropertyName("sampleTime")]
+        public DateTime SampleTime { get; set; }
+
+        [JsonPropertyName("procpath")]
+        public string Procpath { get; set; } = string.Empty;
+
+        [JsonPropertyName("self")]
+        public double Self { get; set; }
+
+        [JsonPropertyName("total")]
+        public double Total { get; set; }
+
+        [JsonPropertyName("real")]
+        public double Real { get; set; }
+
+        [JsonPropertyName("over")]
+        public double Over { get; set; }
+
+        [JsonPropertyName("calls")]
+        public int Calls { get; set; }
 
         public void fromModels(Proc proc, Sample sample) {
-            roundId = sample.RoundId;
-            sampleTime = sample.SampleTime;
-            procpath = proc.Procpath;
-            self = sample.Self;
-            total = sample.Total;
-            real = sample.Real;
-            over = sample.Over;
-            calls = sample.Calls;
+            RoundId = sample.RoundId;
+            SampleTime = sample.SampleTime;
+            Procpath = proc.Procpath;
+            Self = sample.Self;
+            Total = sample.Total;
+            Real = sample.Real;
+            Over = sample.Over;
+            Calls = sample.Calls;
         }
     }
 }
