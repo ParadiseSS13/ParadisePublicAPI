@@ -10,10 +10,11 @@ using ParadisePublicAPI.Database;
 using ParadisePublicAPI.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ParadisePublicAPI.Controllers {
+namespace ParadisePublicAPI.Controllers.V1 {
     /// <summary>
     /// Controller for querying statistics from game rounds
     /// </summary>
+    [ApiExplorerSettings(GroupName = "v1")]
     [SwaggerTag("Query statistics from game rounds")]
     [Route("stats")]
     public class StatsController(ParadiseGamedbContext context) : Controller {

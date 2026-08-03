@@ -8,7 +8,6 @@ using System.Reflection;
 
 
 // AA 2026-08-03 When I first made this I made it do top level statements. I hate this.
-
 namespace ParadisePublicAPI {
     public class Program {
         public static void Main(string[] args) {
@@ -22,6 +21,11 @@ namespace ParadisePublicAPI {
                 options.EnableAnnotations();
                 options.SwaggerDoc("v1", new OpenApiInfo {
                     Version = "v1",
+                    Title = "Paradise Public API",
+                    Description = "Paradise Station public API for data querying. This API may change with no notice.<br>Source: <a href=\"https://github.com/ParadiseSS13/ParadisePublicAPI\">https://github.com/ParadiseSS13/ParadisePublicAPI</a><br>Requests are limited to 500 every minute, and 3600 every hour."
+                });
+                options.SwaggerDoc("v2", new OpenApiInfo {
+                    Version = "v2",
                     Title = "Paradise Public API",
                     Description = "Paradise Station public API for data querying. This API may change with no notice.<br>Source: <a href=\"https://github.com/ParadiseSS13/ParadisePublicAPI\">https://github.com/ParadiseSS13/ParadisePublicAPI</a><br>Requests are limited to 500 every minute, and 3600 every hour."
                 });
@@ -74,6 +78,7 @@ namespace ParadisePublicAPI {
             app.UseSwagger();
             app.UseSwaggerUI(options => {
                 options.SwaggerEndpoint("swagger/v1/swagger.json", "v1");
+                options.SwaggerEndpoint("swagger/v2/swagger.json", "v2");
                 options.RoutePrefix = string.Empty;
 
             });
