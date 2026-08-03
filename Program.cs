@@ -1,13 +1,13 @@
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using ParadisePublicAPI.Database;
 using ParadisePublicAPI.ProfilerDatabase;
 using System.Reflection;
 
 
-// AA 2026-08-03 When I first made this I made it do top level statements. I hate this.
+// AA 2026-08-03 When I first made this I made it do top level statements. I hate my past self.
 namespace ParadisePublicAPI {
     public class Program {
         public static void Main(string[] args) {
